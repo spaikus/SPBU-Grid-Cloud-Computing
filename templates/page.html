@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HashGen</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      .container {
+        max-width: 700pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+      <h1><a href="api/" style="color: inherit;">HashGen</a></h1>
+      <form role="form" method='POST' action='/'>
+        <button type="submit" name="hash_func" value="{{hash_func}}" style="background:transparent; border:none; color:transparent;float: right;"></button>
+        <div style="margin-bottom:10pt;">
+          {% for func in hash_funcs %}
+            {% if hash_func == func %}
+            <a class="btn btn-dark btn-sm active"> {{func}}</a>
+            {% else %}
+            <button type="submit" name="hash_func" value={{func}} class="btn btn-outline-dark btn-sm">{{func}}</button>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="form-group">
+          <button type="submit" name="hash_func" value="{{hash_func}}" style="float: right" class="btn btn-primary">Hash</button>
+          <div style="overflow: hidden;">
+            <input name="input_str" value="{{input_str}}" type="text" class="form-control" placeholder="Input string to hash" autofocus>
+          </div>​
+        </div>
+      </form>
+      <div style="word-wrap: break-word"><h4>{{ hash }}</h4></div>
+    </div>
+  </body>
+</html>
