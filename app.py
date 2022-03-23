@@ -1,5 +1,3 @@
-import os
-from distutils.log import debug
 from flask import Flask, request, render_template
 from flask_restx import Api, Resource
 import hash
