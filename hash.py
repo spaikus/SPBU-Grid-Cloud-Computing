@@ -249,17 +249,12 @@ def streebog256(str: str) -> str:
         for i in range(8):
             i <<= 3
 
-            for j in range(8):
-                tmp[i + j] = PI[vec[TAU[i + j]]]
+            tmp[i:i + 8] = PI[vec[TAU[i:i + 8]]]
             
-            c = np.array([0], dtype=np.uint64)
-            for j in range(64):
-                if tmp[i + (j >> 3)] & (1 << ((7 - j) & 7)):
-                    c ^= A[j]
+            j = np.arange(64)
+            c = np.array([np.bitwise_xor.reduce(A * ((tmp[i + (j >> 3)] & (1 << ((7 - j) & 7))) != 0))], dtype=np.uint64)
             for j in range(8):
-                global lps_last_vals
-                lps_last_vals = (c, j)
-                tmp[i + j] = np.uint8(c >> ((7 - j) << 3))
+                tmp[i + j] = np.array(c >> ((7 - j) << 3), dtype=np.uint8)
         vec[:] = tmp[:]
 
     def E(K, m):
